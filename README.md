@@ -54,7 +54,7 @@ VirusTotal の結果を見ると、`AI`・`suspicious`・`malicious` などと�
 ## 🐞 既知の問題
 
 - エクスプローラーから `.clip` ファイルを開いた場合、Discordに正しくファイル名が表示されないことがあります。
-- CSP（Clip Studio Paint）の起動状態を確認する処理で、まれにCPU使用率が5%前後になることがあります。
+- CSP（Clip Studio Paint）の起動状態を確認する処理で、まれにCPU使用率が5%前後になることがあります。　解決済み✅
 - 一部のウイルス対策ソフトで誤検知されることがあります。
 
 
@@ -116,7 +116,7 @@ If you're concerned, feel free to [build from the source](#) yourself.
 ## 🐞 Known Issues
 
 - If you open `.clip` files from Explorer, the filename may not display correctly in Discord.
-- Occasionally, checking for CSP running status may cause 5% CPU usage.
+- Occasionally, checking for CSP running status may cause 5% CPU usage. solved✅
 - Some antivirus programs may falsely detect the EXE as a threat.
 
 
