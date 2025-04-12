@@ -1,8 +1,12 @@
 # ClipStatus - Clip Studio Paint Discord Rich Presence
 
-![Sample Tray Screenshot](./images/tray_sample.png)
-![Sample Rich Presence Screenshot](./images/rich_presence_sample.png)
+![Sample Tray Screenshot]
+![image](https://github.com/user-attachments/assets/f2c84299-be10-4a4e-9683-308e7b0d6205)
 
+![Sample Rich Presence Screenshot](./images/rich_presence_sample.png)
+eng
+![Uploading image.png…]()
+jpn
 ---
 
 ## 🇯🇵 日本語
@@ -25,6 +29,7 @@
 
 ### 既知の不具合
 - `.clip` ファイルをエクスプローラーから直接開くと、ファイル名が正しく取得されません。
+- 正しくトレイから設定を変更できない問題が起きる可能性があります 1.0.2で発生。
 
 ### ISSUEについて
 可能な限り対応しますが、**既知の不具合を確認してから**ご報告いただけると助かります。
