@@ -4,6 +4,28 @@
 ![image](https://github.com/user-attachments/assets/f2c84299-be10-4a4e-9683-308e7b0d6205)
 
 
+## 🇺🇸 English
+
+### Overview
+This program is a lightweight Python script that implements **Discord Rich Presence** for **Clip Studio Paint**.
+
+> 💡 This code is 99% written by ChatGPT. I did not put much effort into it.  
+> I'm not a programmer.
+
+### Features
+- Language switching: Japanese / English
+- Edition switching: Debut / Pro / EX
+- Version switching
+- Icon switching (multiple available)
+- Reload function (restart without task-killing)
+- Hide from system tray (must be enabled via `config.json`)
+
+> 🔧 All features except “Hide from tray” are configurable directly via the tray menu.
+
+### Known Issues
+- When opening `.clip` files directly from File Explorer, the filename may not be detected correctly.
+
+
 ---
 
 ## 🇯🇵 日本語
@@ -34,26 +56,6 @@
 
 ---
 
-## 🇺🇸 English
-
-### Overview
-This program is a lightweight Python script that implements **Discord Rich Presence** for **Clip Studio Paint**.
-
-> 💡 This code is 99% written by ChatGPT. I did not put much effort into it.  
-> I'm not a programmer.
-
-### Features
-- Language switching: Japanese / English
-- Edition switching: Debut / Pro / EX
-- Version switching
-- Icon switching (multiple available)
-- Reload function (restart without task-killing)
-- Hide from system tray (must be enabled via `config.json`)
-
-> 🔧 All features except “Hide from tray” are configurable directly via the tray menu.
-
-### Known Issues
-- When opening `.clip` files directly from File Explorer, the filename may not be detected correctly.
 
 ### Regarding Issues
 I will try to respond as much as possible, but please check **known issues** first before submitting.
