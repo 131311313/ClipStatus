@@ -83,7 +83,7 @@ VirusTotal の結果を見ると、`AI`・`suspicious`・`malicious` などと�
    ```json
    {
        "edition": "EX",         // Choose from DEBUT, PRO, or EX
-       "language": "jp",        // Only Japanese supported currently
+       "language": "jp",        // choose from jp,en
        "large_image": "dark_icon", // Choose from dark_icon or default_icon
        "version": "4.0.0"       // Your version of Clip Studio Paint
    }
