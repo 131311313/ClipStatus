@@ -11,6 +11,8 @@ This program is a lightweight Python script that implements **Discord Rich Prese
 
 > 💡 This code is 99% written by ChatGPT. I did not put much effort into it.  
 > I'm not a programmer.
+> The default installation path is C:\Program Files (x86)\ClipStatus
+
 
 ### Features
 - Language switching: Japanese / English
@@ -41,6 +43,8 @@ I will try to respond as much as possible, but please check **known issues** fir
 
 > 💡 このコードは 99% ChatGPT によって生成されており、私はほとんど努力していません。  
 > 私はプログラマーではありません。
+> デフォルトのインストールパスはC:\Program Files (x86)\ClipStatusです
+
 
 ### 機能一覧
 - 日本語 / 英語 の切り替え
