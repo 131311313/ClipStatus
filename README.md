@@ -53,6 +53,7 @@ I will try to respond as much as possible, but please check **known issues** fir
 
 ### 既知の不具合
 - `.clip` ファイルをエクスプローラーから直接開くと、ファイル名が正しく取得されません。
+- 権限の問題でconfig.jsonが変更できない
 
 ---
 
