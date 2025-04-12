@@ -21,7 +21,7 @@
    ```json
    {
        "edition": "EX",         // DEBUT, PRO, EX から選択
-       "language": "jp",        // 現在は日本語のみ対応（英語は未実装）
+       "language": "jp",        // jp, enから選択
        "large_image": "dark_icon", // dark_icon または default_icon
        "version": "4.0.0"       // 使用中のClip Studio Paintのバージョン
    }
