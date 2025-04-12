@@ -77,6 +77,15 @@ def restart_application():
     python = sys.executable
     os.execl(python, python, *sys.argv)
 
+def cleanup():
+    """アプリケーションのクリーンアップを行う"""
+    print("Cleaning up...")
+    try:
+        RPC.close()
+    except:
+        pass
+    os._exit(0)
+
 def create_tray_icon(config, update_config_callback):
     def on_reload(icon, item):
         print("Reloading with current config...")
@@ -86,9 +95,8 @@ def create_tray_icon(config, update_config_callback):
 
     def on_exit(icon, item):
         print("Closing Discord Rich Presence...")
-        RPC.close()  # Discord RPCを閉じる
         icon.stop()
-        os._exit(0)  # 確実にプログラムを終了
+        cleanup()
 
     def change_language(icon, item):
         config["language"] = "jp" if item.text == "日本語" else "en"
@@ -193,34 +201,39 @@ def main():
 
             if proc:
                 current_pid = proc.pid
-                if current_pid != last_pid:
+                if current_pid != last_pid or force_update:
                     last_pid = current_pid
-                    last_filename = None
+                    last_filename = None  # Reset filename to force update
+                    force_update = False  # Reset force_update flag
 
                 try:
                     cmdline = proc.cmdline()
                     filename = extract_info_from_cmdline(cmdline, lang)
                     
-                    if filename != last_filename or force_update:
+                    if filename != last_filename:
                         last_filename = filename
                         update_rpc(edition, filename, config)
-                        force_update = False
                 except (psutil.NoSuchProcess, psutil.AccessDenied):
                     pass
             else:
-                if last_pid is not None or force_update:
-                    last_pid = None
+                if last_filename is not None:
                     last_filename = None
-                    update_rpc(edition, "無題" if lang == "jp" else "Untitled", config)
-                    force_update = False
-
+                    last_pid = None
+                    state_text = "待機中..." if lang == "jp" else "Waiting..."
+                    detail_text = f"EDITION : {edition}"
+                    RPC.update(
+                        state=state_text,
+                        details=detail_text,
+                        large_image=config["large_image"],
+                        large_text=f"Clip Studio Paint {edition} {config['version']}"
+                    )
+            
             time.sleep(1)
     except KeyboardInterrupt:
-        print("Shutting down...")
-    finally:
-        if tray_icon:
-            tray_icon.stop()
-        RPC.close()
+        cleanup()
+    except Exception as e:
+        print(f"Error: {e}")
+        cleanup()
 
 if __name__ == "__main__":
     main()
