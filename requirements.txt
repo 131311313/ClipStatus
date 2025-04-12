@@ -1,2 +1,4 @@
 psutil
 pypresence
+pystray
+pillow
