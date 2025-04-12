@@ -22,7 +22,14 @@ This program is a lightweight Python script that implements **Discord Rich Prese
 > 🔧 All features except “Hide from tray” are configurable directly via the tray menu.
 
 ### Known Issues
-- When opening `.clip` files directly from File Explorer, the filename may not be detected correctly.
+- When opening `.clip` files directly from File Explorer, the filename may not be detected correctly. 
+
+-  Problem with configurations not being reflected from the tray.
+
+This is due to lack of permissions; if you try to overwrite the config.json with Notepad and get an error, this is the problem.
+C:\Program Files (x86)\ClipStatus
+Right click on this folder, open properties, click security, edit
+Give your user full control and apply it. If that does not work, whitelist it with your antivirus software and then follow the previous steps for each file individually.
 
 ---
 
@@ -53,7 +60,13 @@ I will try to respond as much as possible, but please check **known issues** fir
 
 ### 既知の不具合
 - `.clip` ファイルをエクスプローラーから直接開くと、ファイル名が正しく取得されません。
-- 権限の問題でconfig.jsonが変更できない
+
+- トレイから設定しても反映されない問題
+
+これは権限が足りないためです。config.jsonをメモ帳で上書き保存しようとしてみてエラーが出たらこの不具合に当てはまります。
+C:\Program Files (x86)\ClipStatus
+このフォルダを右クリック、プロパティを開いてセキュリティ、編集をクリック
+自分のユーザーにフルコントロールを与えて適用してください、それでもうまくいかない場合ウイルス対策ソフトのホワイトリストに登録した後、ファイル個別に先ほどの手順を行ってください
 
 ---
 
