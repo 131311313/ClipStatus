@@ -25,7 +25,10 @@ This program is a lightweight Python script that implements **Discord Rich Prese
 ### Known Issues
 - When opening `.clip` files directly from File Explorer, the filename may not be detected correctly.
 
+### Regarding Issues
+I will try to respond as much as possible, but please check **known issues** first before submitting.
 
+---
 ---
 
 ## 🇯🇵 日本語
@@ -57,8 +60,5 @@ This program is a lightweight Python script that implements **Discord Rich Prese
 ---
 
 
-### Regarding Issues
-I will try to respond as much as possible, but please check **known issues** first before submitting.
 
----
 
