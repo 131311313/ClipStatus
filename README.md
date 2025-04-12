@@ -1,8 +1,6 @@
 # ClipStatus - Clip Studio Paint Discord Rich Presence
 
-
 ![image](https://github.com/user-attachments/assets/f2c84299-be10-4a4e-9683-308e7b0d6205)
-
 
 ## 🇺🇸 English
 
@@ -10,31 +8,28 @@
 This program is a lightweight Python script that implements **Discord Rich Presence** for **Clip Studio Paint**.
 
 > 💡 This code is 99% written by ChatGPT. I did not put much effort into it.  
-> I'm not a programmer.
-> The default installation path is C:\Program Files (x86)\ClipStatus
-
+> I'm not a programmer.  
+> The default installation path is `C:\Program Files (x86)\ClipStatus`
 
 ### Features
-- Language switching: Japanese / English
-- Edition switching: Debut / Pro / EX
-- Version switching
-- Icon switching (multiple available)
-- Reload function (restart without task-killing)
-- Hide from system tray (must be enabled via `config.json`)
+- Language switching: Japanese / English  
+- Edition switching: Debut / Pro / EX  
+- Version switching  
+- Icon switching (multiple available)  
+- Reload function (restart without task-killing)  
+- Hide from system tray (must be enabled via `config.json`)  
 
 > 🔧 All features except “Hide from tray” are configurable directly via the tray menu.
 
 ### Known Issues
 - When opening `.clip` files directly from File Explorer, the filename may not be detected correctly.
+
 ---
+
 ### Regarding Issues
 I will try to respond as much as possible, but please check **known issues** first before submitting.
 
-
-
 ---
-
-
 
 ## 🇯🇵 日本語
 
@@ -42,30 +37,71 @@ I will try to respond as much as possible, but please check **known issues** fir
 このプログラムは、**Clip Studio Paint** の Discord Rich Presence を軽量な Python スクリプトで実装することを目的としています。
 
 > 💡 このコードは 99% ChatGPT によって生成されており、私はほとんど努力していません。  
-> 私はプログラマーではありません。
-> デフォルトのインストールパスはC:\Program Files (x86)\ClipStatusです
-
+> 私はプログラマーではありません。  
+> デフォルトのインストールパスは `C:\Program Files (x86)\ClipStatus` です。
 
 ### 機能一覧
-- 日本語 / 英語 の切り替え
-- エディションの切り替え（Debut / Pro / EX）
-- プロジェクトファイル名取得
-- バージョンの切り替え
-- アイコンの切り替え（複数種類があります）
-- リロード機能（タスクキルなしで再起動）
-- トレイからウィンドウを隠す（※config.jsonから有効にする必要あり）
-  
+- 日本語 / 英語 の切り替え  
+- エディションの切り替え（Debut / Pro / EX）  
+- プロジェクトファイル名取得  
+- バージョンの切り替え  
+- アイコンの切り替え（複数種類があります）  
+- リロード機能（タスクキルなしで再起動）  
+- トレイからウィンドウを隠す（※config.jsonから有効にする必要あり）  
 
 > 🔧「トレイから隠す」機能以外は、すべてトレイメニューから操作可能です。
 
 ### 既知の不具合
 - `.clip` ファイルをエクスプローラーから直接開くと、ファイル名が正しく取得されません。
 
+---
+
 ### ISSUEについて
 可能な限り対応しますが、**既知の不具合を確認してから**ご報告いただけると助かります。
 
 ---
 
+## 🛠️ Build Guide / ビルド手順
+
+### 🇺🇸 English
+
+To build ClipStatus as a standalone executable:
+
+1. Download this repository as a folder from GitHub.  
+2. Install [Nuitka](https://nuitka.net/) using pip:
+
+    ```bash
+    pip install nuitka
+    ```
+
+3. Then run the following command in the project directory:
+
+    ```bash
+    nuitka --standalone --onefile --windows-disable-console --windows-icon-from-ico="dark_icon.ico" clipstatus.pyw
+    ```
+
+This will create a single `.exe` file you can distribute or run directly.
+
+---
+
+### 🇯🇵 日本語
+
+ClipStatus をスタンドアロンの実行ファイルとしてビルドするには：
+
+1. GitHubからこのリポジトリをフォルダとしてダウンロードしてください。  
+2. [Nuitka](https://nuitka.net/) を pip でインストールします：
+
+    ```bash
+    pip install nuitka
+    ```
+
+3. プロジェクトのディレクトリで以下のコマンドを実行してください：
+
+    ```bash
+    nuitka --standalone --onefile --windows-disable-console --windows-icon-from-ico="dark_icon.ico" clipstatus.pyw
+    ```
+
+これで、配布可能な単一の `.exe` ファイルが生成されます。
 
 
 
