@@ -1,4 +1,4 @@
-# 🛠️ Clip Studio Paint ステータス切り替えスクリプト
+# 🛠️ Clip Studio Paint ディスコードリッチプレゼンス
 
 > **これは 99% ChatGPT によって作成された Python スクリプトです。**  
 > 私はほぼ努力をしていません。ただこの機能が欲しかったのでChatGPTを使い作成しました。
@@ -60,7 +60,8 @@ Python ではバージョンやエディションを直接取得できません�
 
 
 
-# 🛠️ Clip Studio Paint Status Switcher Script
+# 🛠️ Clip Studio Paint Discord rich presence script
+
 
 > **This is a Python script created with 99% help from ChatGPT.**  
 > I barely did anything myself—I just wanted this feature, so I used ChatGPT to make it.
