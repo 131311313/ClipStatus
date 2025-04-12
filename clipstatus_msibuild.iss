@@ -4,27 +4,34 @@ AppVersion=1.0
 DefaultDirName={pf}\ClipStatus
 DefaultGroupName=ClipStatus
 OutputDir=userdocs:Inno Setup Examples Output
-OutputBaseFilename=setup
+OutputBaseFilename=clipstatus_setup
 Compression=lzma
 SolidCompression=yes
 
 [Files]
 ; ClipStatus EXE ファイルをインストール
-Source: "C:\Users\!!!!!yourUsername!!!!!!\Downloads\clipstatus\clipstatus.exe"; DestDir: "{app}"; Flags: ignoreversion
+; Install ClipStatus EXE file
+Source: "C:\Users\<username>\Downloads\clipstatus\clipstatus.exe"; DestDir: "{app}"; Flags: ignoreversion
 
-; アイコンファイルをインストール
-Source: "C:\Users\!!!!!yourUsername!!!!!!\Downloads\clipstatus\dark_icon.png"; DestDir: "{app}"; Flags: ignoreversion
+; config.json ファイルをインストール
+; Install config.json file
+Source: "C:\Users\<username>\Downloads\clipstatus\config.json"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 ; スタートメニューにショートカットを作成
+; Create shortcut in Start Menu
 Name: "{group}\ClipStatus"; Filename: "{app}\clipstatus.exe"
+
 ; デスクトップにもショートカットを作成
-Name: "{desktop}\ClipStatus"; Filename: "{app}\clipstatus.exe"
+; Create shortcut on Desktop
+Name: "{userdesktop}\ClipStatus"; Filename: "{app}\clipstatus.exe"
 
 [Run]
 ; インストール後にアプリケーションを実行
+; Run the application after installation
 Filename: "{app}\clipstatus.exe"; Description: "Launch ClipStatus"; Flags: nowait postinstall skipifsilent
 
 [Registry]
-; スタートアップに登録するためのレジストリを追加
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueName: "ClipStatus"; ValueType: string; ValueData: "{app}\clipstatus.exe"
+; スタートアップに clipstatus.exe を登録
+; Register clipstatus.exe in Windows Startup
+Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueName: "ClipStatus"; ValueType: string; ValueData: """{app}\clipstatus.exe"""
