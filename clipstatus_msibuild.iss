@@ -10,10 +10,10 @@ SolidCompression=yes
 
 [Files]
 ; ClipStatus EXE ファイルをインストール
-Source: "your clipstatus.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\!!!!!yourUsername!!!!!!\Downloads\clipstatus\clipstatus.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 ; アイコンファイルをインストール
-Source: "your dark_icon.png"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\!!!!!yourUsername!!!!!!\Downloads\clipstatus\dark_icon.png"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 ; スタートメニューにショートカットを作成
