@@ -1,8 +1,8 @@
 # ClipStatus - Clip Studio Paint Discord Rich Presence
 
-sample screen shot
+
 ![image](https://github.com/user-attachments/assets/f2c84299-be10-4a4e-9683-308e7b0d6205)
-![Uploading image.png…]()
+
 
 ---
 
