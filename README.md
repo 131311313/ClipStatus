@@ -1,4 +1,4 @@
-# 🛠️ Clip Studio Paint Discord Rich Presence
+# 🛠️ Clip Studio Paint Discord Rich Presence JPN
 
 > **この Python スクリプトは 99% ChatGPT によって生成されました。**  
 > 私はほとんど努力していません。ただ、この機能が欲しかったので ChatGPT を使って作成しました。
@@ -57,6 +57,10 @@ VirusTotal の結果を見ると、`AI`・`suspicious`・`malicious` などと�
 - CSP（Clip Studio Paint）の起動状態を確認する処理で、まれにCPU使用率が5%前後になることがあります。
 - 一部のウイルス対策ソフトで誤検知されることがあります。
 
+
+
+
+# 🛠️ Clip Studio Paint Discord Rich Presence ENG
 
 
 # 🛠️ Clip Studio Paint Discord Rich Presence
