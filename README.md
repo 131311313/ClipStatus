@@ -9,7 +9,8 @@ This program is a lightweight Python script that implements **Discord Rich Prese
 
 > 💡 This code is 99% written by ChatGPT. I did not put much effort into it.  
 > I'm not a programmer.  
-> The default installation path is `C:\Program Files (x86)\ClipStatus`
+> The default installation path is:  
+> `C:\Program Files (x86)\ClipStatus`
 
 ### Features
 - Language switching: Japanese / English  
@@ -22,56 +23,64 @@ This program is a lightweight Python script that implements **Discord Rich Prese
 > 🔧 All features except “Hide from tray” are configurable directly via the tray menu.
 
 ### Known Issues
-- When opening `.clip` files directly from File Explorer, the filename may not be detected correctly. 
+- When opening `.clip` files directly from File Explorer, the filename may not be detected correctly.
 
--  Problem with configurations not being reflected from the tray.
+- Settings from tray menu might not be applied properly.
 
-This is due to lack of permissions; if you try to overwrite the config.json with Notepad and get an error, this is the problem.
-C:\Program Files (x86)\ClipStatus
-Right click on this folder, open properties, click security, edit
-Give your user full control and apply it. If that does not work, whitelist it with your antivirus software and then follow the previous steps for each file individually.
+This is due to lack of permissions. If you're getting errors trying to overwrite `config.json` with Notepad, this is likely the cause.  
+To fix this:
+1. Go to `C:\Program Files (x86)\ClipStatus`
+2. Right-click the folder > Properties > Security > Edit
+3. Grant your user **Full Control** and apply.
+4. If the problem persists, add the app to your antivirus whitelist, and repeat the steps for each file individually.
 
 ---
 
 ### Regarding Issues
-I will try to respond as much as possible, but please check **known issues** first before submitting.
+I’ll try to respond as much as possible, but please check the **Known Issues** section before submitting anything.
 
 ---
 
 ## 🇯🇵 日本語
 
 ### 概要
-このプログラムは、**Clip Studio Paint** の Discord Rich Presence を軽量な Python スクリプトで実装することを目的としています。
+このプログラムは、**Clip Studio Paint** の Discord Rich Presence を  
+軽量な Python スクリプトで実装することを目的としています。
 
 > 💡 このコードは 99% ChatGPT によって生成されており、私はほとんど努力していません。  
 > 私はプログラマーではありません。  
-> デフォルトのインストールパスは `C:\Program Files (x86)\ClipStatus` です。
+> デフォルトのインストールパスは：  
+> `C:\Program Files (x86)\ClipStatus`
 
 ### 機能一覧
 - 日本語 / 英語 の切り替え  
 - エディションの切り替え（Debut / Pro / EX）  
-- プロジェクトファイル名取得  
 - バージョンの切り替え  
-- アイコンの切り替え（複数種類があります）  
+- アイコンの切り替え（複数種類）  
 - リロード機能（タスクキルなしで再起動）  
-- トレイからウィンドウを隠す（※config.jsonから有効にする必要あり）  
+- トレイからウィンドウを隠す（※`config.json`から有効化が必要）  
 
 > 🔧「トレイから隠す」機能以外は、すべてトレイメニューから操作可能です。
 
 ### 既知の不具合
 - `.clip` ファイルをエクスプローラーから直接開くと、ファイル名が正しく取得されません。
 
-- トレイから設定しても反映されない問題
+- トレイから設定しても反映されない場合があります。
 
-これは権限が足りないためです。config.jsonをメモ帳で上書き保存しようとしてみてエラーが出たらこの不具合に当てはまります。
-C:\Program Files (x86)\ClipStatus
-このフォルダを右クリック、プロパティを開いてセキュリティ、編集をクリック
-自分のユーザーにフルコントロールを与えて適用してください、それでもうまくいかない場合ウイルス対策ソフトのホワイトリストに登録した後、ファイル個別に先ほどの手順を行ってください
+これは権限が不足していることが原因です。  
+`config.json` をメモ帳で上書き保存しようとしてエラーが出たら、この不具合に該当します。  
+以下の手順で修正できます：
+
+1. `C:\Program Files (x86)\ClipStatus` を開く  
+2. フォルダを右クリック > プロパティ > セキュリティ > 編集  
+3. 自分のユーザーに「フルコントロール」を与えて適用  
+4. それでも直らない場合は、ウイルス対策ソフトのホワイトリストに追加し、  
+   各ファイルに対して同様の手順を繰り返してください。
 
 ---
 
 ### ISSUEについて
-可能な限り対応しますが、**既知の不具合を確認してから**ご報告いただけると助かります。
+可能な限り対応しますが、**まず既知の不具合をご確認ください。**
 
 ---
 
@@ -116,6 +125,3 @@ ClipStatus をスタンドアロンの実行ファイルとしてビルドする
     ```
 
 これで、配布可能な単一の `.exe` ファイルが生成されます。
-
-
-
