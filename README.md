@@ -9,7 +9,7 @@
 
 ## 📦 セットアップ方法
 
-1. [Releases](#) から `clipstatus_setup.msi` をダウンロードしてください。
+1. [Releases]([#](https://github.com/131311313/ClipStatus/releases/tag/test)) から `clipstatus_setup.msi` をダウンロードしてください。
 2. 画面の指示に従ってインストールを進めます。
 3. インストール先は通常以下のディレクトリになります：  
    ```
@@ -70,7 +70,7 @@ VirusTotal の結果を見ると、`AI`・`suspicious`・`malicious` などと�
 
 ## 📦 How to Set Up
 
-1. Download `clipstatus_setup.msi` from the [Releases](#) section.
+1. Download `clipstatus_setup.msi` from the [Releases]([#](https://github.com/131311313/ClipStatus/releases/tag/test)) section.
 2. Follow the on-screen instructions to complete the installation.
 3. By default, it installs to:  
    ```
