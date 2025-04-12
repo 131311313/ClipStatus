@@ -2,6 +2,24 @@ import time
 import psutil
 import json
 from pypresence import Presence
+import pystray
+from PIL import Image
+import threading
+import sys
+import os
+
+# 共通のバージョンリストを使用して重複を削除
+COMMON_VERSIONS = [
+    "4.0.0", "3.2.2", "3.2.0", "3.1.4", "3.1.2", "3.1.0",
+    "3.0.8", "3.0.2", "3.0.0", "2.3.4", "2.3.2", "2.3.0",
+    "2.2.0", "2.1.3", "2.1.0", "2.0.1", "2.0.0"
+]
+
+VERSIONS = {
+    "EX": COMMON_VERSIONS,
+    "PRO": COMMON_VERSIONS,
+    "DEBUT": COMMON_VERSIONS
+}
 
 CLIENT_ID = "1359569869258883072"
 RPC = Presence(CLIENT_ID)
@@ -19,12 +37,17 @@ def load_config():
             "version": "4.0.0"
         }
 
+def save_config(config):
+    with open("config.json", "w", encoding="utf-8") as f:
+        json.dump(config, f, indent=4)
+
 def find_csp_process():
     """CSPプロセスを探して戻す（低負荷）"""
-    for proc in psutil.process_iter(['name']):
-        if proc.info['name'] == "CLIPStudioPaint.exe":
-            return proc
-    return None
+    try:
+        return next(proc for proc in psutil.process_iter(['name']) 
+                   if proc.info['name'] == "CLIPStudioPaint.exe")
+    except StopIteration:
+        return None
 
 def extract_info_from_cmdline(cmdline, language):
     if cmdline:
@@ -35,7 +58,7 @@ def extract_info_from_cmdline(cmdline, language):
 
 def update_rpc(edition, filename, config):
     lang = config.get("language", "jp")
-    state_text = f"{filename} を編集中🖌️🎨" if lang == "jp" else f"Editing {filename} 🖌️🎨"
+    state_text = f"{filename} {'を編集中🖌️🎨' if lang == 'jp' else 'Editing 🖌️🎨'}"
     detail_text = f"EDITION : {edition}"
     large_text = f"Clip Studio Paint {edition} {config['version']}"
     
@@ -48,40 +71,156 @@ def update_rpc(edition, filename, config):
         large_text=large_text
     )
 
+def restart_application():
+    print("Restarting application...")
+    RPC.close()  # Discord RPCを閉じる
+    python = sys.executable
+    os.execl(python, python, *sys.argv)
+
+def create_tray_icon(config, update_config_callback):
+    def on_reload(icon, item):
+        print("Reloading with current config...")
+        icon.stop()  # トレイアイコンを停止
+        RPC.close()  # Discord RPCを閉じる
+        restart_application()  # アプリケーションを再起動（設定は起動時に読み込まれる）
+
+    def on_exit(icon, item):
+        print("Closing Discord Rich Presence...")
+        RPC.close()  # Discord RPCを閉じる
+        icon.stop()
+        os._exit(0)  # 確実にプログラムを終了
+
+    def change_language(icon, item):
+        config["language"] = "jp" if item.text == "日本語" else "en"
+        save_config(config)
+        update_config_callback(config)
+
+    def change_edition(icon, item):
+        config["edition"] = item.text
+        if "version" not in config or config["version"] not in VERSIONS[item.text]:
+            config["version"] = VERSIONS[item.text][0]  # デフォルトで最新バージョンを選択
+        save_config(config)
+        update_config_callback(config)
+
+    def change_version(icon, item):
+        config["version"] = item.text
+        save_config(config)
+        update_config_callback(config)
+
+    def change_icon_theme(icon, item):
+        config["large_image"] = item.text
+        save_config(config)
+        update_config_callback(config)
+
+    def open_config(icon, item):
+        os.startfile("config.json")
+
+    # アイコンの作成
+    image = Image.open("icon.png")
+    
+    # メニューアイテムの作成
+    language_menu = pystray.Menu(
+        pystray.MenuItem("日本語", change_language, checked=lambda item: config["language"] == "jp"),
+        pystray.MenuItem("English", change_language, checked=lambda item: config["language"] == "en")
+    )
+
+    def create_version_menu():
+        current_edition = config["edition"]
+        return pystray.Menu(
+            *[pystray.MenuItem(ver, change_version, checked=lambda item, v=ver: config["version"] == v)
+              for ver in VERSIONS[current_edition]]
+        )
+
+    edition_menu = pystray.Menu(
+        pystray.MenuItem("EX", change_edition, checked=lambda item: config["edition"] == "EX"),
+        pystray.MenuItem("PRO", change_edition, checked=lambda item: config["edition"] == "PRO"),
+        pystray.MenuItem("DEBUT", change_edition, checked=lambda item: config["edition"] == "DEBUT")
+    )
+
+    icon_theme_menu = pystray.Menu(
+        pystray.MenuItem("default_icon", change_icon_theme, checked=lambda item: config["large_image"] == "default_icon"),
+        pystray.MenuItem("dark_icon", change_icon_theme, checked=lambda item: config["large_image"] == "dark_icon"),
+        pystray.MenuItem("dark2_icon", change_icon_theme, checked=lambda item: config["large_image"] == "dark2_icon"),
+        pystray.MenuItem("dark3_icon", change_icon_theme, checked=lambda item: config["large_image"] == "dark3_icon"),
+        pystray.MenuItem("neon_icon", change_icon_theme, checked=lambda item: config["large_image"] == "neon_icon"),
+        pystray.MenuItem("neon2_icon", change_icon_theme, checked=lambda item: config["large_image"] == "neon2_icon")
+    )
+
+    menu = pystray.Menu(
+        pystray.MenuItem("Config を開く", open_config),
+        pystray.MenuItem("Language", language_menu),
+        pystray.MenuItem("Edition", edition_menu),
+        pystray.MenuItem("Version", create_version_menu()),
+        pystray.MenuItem("Icon Theme", icon_theme_menu),
+        pystray.MenuItem("Reload", on_reload),
+        pystray.MenuItem("Exit", on_exit)
+    )
+
+    icon = pystray.Icon("ClipStatus", image, "ClipStatus", menu)
+    return icon
+
 def main():
     print("Connecting to Discord Rich Presence...")
     RPC.connect()
-    print("Discord Rich Presence Connected!")
+    print("Connected!")
 
     config = load_config()
     edition = config.get("edition", "EX")
     lang = config.get("language", "jp")
-
     last_filename = None
     last_pid = None
+    force_update = False
 
-    while True:
-        proc = find_csp_process()
+    def update_config_callback(new_config):
+        nonlocal edition, lang, force_update
+        edition = new_config.get("edition", "EX")
+        lang = new_config.get("language", "jp")
+        force_update = True
 
-        if proc:
-            try:
-                cmdline = proc.cmdline()
-                filename = extract_info_from_cmdline(cmdline, lang)
+    # トレイアイコンの作成（hide_trayがfalseの場合のみ）
+    tray_icon = None
+    if not config.get("hide_tray", False):
+        tray_icon = create_tray_icon(config, update_config_callback)
+        tray_thread = threading.Thread(target=tray_icon.run)
+        tray_thread.daemon = True
+        tray_thread.start()
+    else:
+        print("Tray icon is hidden by config. Running in background...")
 
-                if filename != last_filename:
-                    print(f"{'CSP 起動中' if lang == 'jp' else 'CSP running'}: {filename}")
-                    update_rpc(edition, filename, config)
-                    last_filename = filename
-            except (psutil.AccessDenied, psutil.NoSuchProcess):
-                print("CSPにアクセスできませんでした。")
-                RPC.clear()
-                last_filename = None
-        else:
-            print("CSPが起動していない → ステータスクリア" if lang == "jp" else "CSP is not running → clearing status.")
-            RPC.clear()
-            last_filename = None
+    try:
+        while True:
+            proc = find_csp_process()
 
-        time.sleep(10)
+            if proc:
+                current_pid = proc.pid
+                if current_pid != last_pid:
+                    last_pid = current_pid
+                    last_filename = None
+
+                try:
+                    cmdline = proc.cmdline()
+                    filename = extract_info_from_cmdline(cmdline, lang)
+                    
+                    if filename != last_filename or force_update:
+                        last_filename = filename
+                        update_rpc(edition, filename, config)
+                        force_update = False
+                except (psutil.NoSuchProcess, psutil.AccessDenied):
+                    pass
+            else:
+                if last_pid is not None or force_update:
+                    last_pid = None
+                    last_filename = None
+                    update_rpc(edition, "無題" if lang == "jp" else "Untitled", config)
+                    force_update = False
+
+            time.sleep(1)
+    except KeyboardInterrupt:
+        print("Shutting down...")
+    finally:
+        if tray_icon:
+            tray_icon.stop()
+        RPC.close()
 
 if __name__ == "__main__":
     main()

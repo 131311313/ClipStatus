@@ -11,16 +11,20 @@ echo Creating or recreating C:\Program Files (x86)\clipstatus...
 rmdir /s /q "C:\Program Files (x86)\clipstatus"
 mkdir "C:\Program Files (x86)\clipstatus"
 
+
+
 :: 必要なファイルをコピー
 echo Copying files to C:\Program Files (x86)\clipstatus...
 copy "%~dp0startup.bat" "C:\Program Files (x86)\clipstatus\startup.bat"
-copy "%~dp0requirements.txt" "C:\Program Files (x86)\clipstatus\requirements.txt"
+copy "%~dp0killpython.bat" "C:\Program Files (x86)\clipstatus\killpython.bat"
 copy "%~dp0ClipStatus.pyw" "C:\Program Files (x86)\clipstatus\ClipStatus.pyw"
 copy "%~dp0config.json" "C:\Program Files (x86)\clipstatus\config.json"
-
+copy "%~dp0requirements.txt" "C:\Program Files (x86)\clipstatus\requirements.txt"
 :: requirements.txt を使って依存関係をインストール
 echo Installing required packages...
 pip install -r "C:\Program Files (x86)\clipstatus\requirements.txt"
+
+
 
 :: スタートアップフォルダのパスを取得
 set "startup_folder=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
