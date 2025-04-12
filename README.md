@@ -1,3 +1,9 @@
+![image](https://github.com/user-attachments/assets/0fa530f0-2da6-43a0-abc7-3b268193dbd3)
+
+
+
+
+
 # 🛠️ Clip Studio Paint Discord Rich Presence JPN
 
 > **この Python スクリプトは 99% ChatGPT によって生成されました。**  
