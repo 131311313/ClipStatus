@@ -20,16 +20,7 @@
    - **言語**
    - お好みの **ロゴアイコン**
 
-   例：
-   ```json
-   {
-     "version": "2.3.0",
-     "edition": "EX",
-     "language": "ja",
-     "default_icon": "icon_white.ico",
-     "dark_icon": "icon_dark.ico"
-   }
-   ```
+
 
 3. `setup.bat` を実行します：
    ```
