@@ -18,7 +18,7 @@
    - Clip Studio Paint の **バージョン**
    - **エディション**（EX / PRO / DEBUT）
    - **言語**
-   - お好みの **ロゴアイコン**
+   - お好みの **ロゴアイコン** (default_icon or dark_icon)
 
 
 
@@ -80,7 +80,7 @@ Python ではバージョンやエディションを直接取得できません�
    - Your Clip Studio Paint **version**
    - **Edition** (EX / PRO / DEBUT)
    - **Language**
-   - Your preferred **logo icon**
+   - Your preferred **logo icon**  (default_icon or dark_icon)
 
 3. Run the setup script:
    ```
