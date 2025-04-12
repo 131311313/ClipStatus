@@ -9,8 +9,7 @@ RPC = Presence(CLIENT_ID)
 def load_config():
     try:
         with open("config.json", "r", encoding="utf-8") as f:
-            config = json.load(f)
-        return config
+            return json.load(f)
     except FileNotFoundError:
         print("config.json が見つかりません。デフォルト設定を使用します。")
         return {
@@ -20,42 +19,27 @@ def load_config():
             "version": "4.0.0"
         }
 
-def get_csp_process_info():
-    for process in psutil.process_iter(attrs=['name', 'cmdline']):
-        if process.info['name'] == "CLIPStudioPaint.exe" and len(process.info['cmdline']) > 1:
-            return process.info['cmdline']
+def find_csp_process():
+    """CSPプロセスを探して戻す（低負荷）"""
+    for proc in psutil.process_iter(['name']):
+        if proc.info['name'] == "CLIPStudioPaint.exe":
+            return proc
     return None
 
 def extract_info_from_cmdline(cmdline, language):
     if cmdline:
         for arg in cmdline:
             if arg.endswith(".clip"):
-                filename = arg.split("\\")[-1]
-                return filename
+                return arg.split("\\")[-1]
     return "無題" if language == "jp" else "Untitled"
-
-def get_csp_edition(config):
-    return config.get("edition", "EX")
-
-def is_csp_running():
-    for process in psutil.process_iter(attrs=['name']):
-        if process.info['name'] == "CLIPStudioPaint.exe":
-            return True
-    return False
 
 def update_rpc(edition, filename, config):
     lang = config.get("language", "jp")
+    state_text = f"{filename} を編集中🖌️🎨" if lang == "jp" else f"Editing {filename} 🖌️🎨"
+    detail_text = f"EDITION : {edition}"
+    large_text = f"Clip Studio Paint {edition} {config['version']}"
     
-    if lang == "jp":
-        state_text = f"{filename} を編集中🖌️🎨"
-        detail_text = f"EDITION : {edition}"
-        large_text = f"Clip Studio Paint {edition} {config['version']}"
-        print(f"ステータスを更新: {filename} 編集中")
-    else:
-        state_text = f"Editing {filename} 🖌️🎨"
-        detail_text = f"EDITION : {edition}"
-        large_text = f"Clip Studio Paint {edition} {config['version']}"
-        print(f"Updated status: Editing {filename}")
+    print(f"{'ステータスを更新' if lang == 'jp' else 'Updated status'}: {filename}")
 
     RPC.update(
         state=state_text,
@@ -70,23 +54,26 @@ def main():
     print("Discord Rich Presence Connected!")
 
     config = load_config()
-    edition = get_csp_edition(config)
+    edition = config.get("edition", "EX")
     lang = config.get("language", "jp")
 
     last_filename = None
+    last_pid = None
 
     while True:
-        if is_csp_running():
-            cmdline = get_csp_process_info()
-            if cmdline:
+        proc = find_csp_process()
+
+        if proc:
+            try:
+                cmdline = proc.cmdline()
                 filename = extract_info_from_cmdline(cmdline, lang)
+
                 if filename != last_filename:
-                    msg = f"CSP {edition} 起動中: {filename}" if lang == "jp" else f"CSP {edition} running: {filename}"
-                    print(msg)
+                    print(f"{'CSP 起動中' if lang == 'jp' else 'CSP running'}: {filename}")
                     update_rpc(edition, filename, config)
                     last_filename = filename
-            else:
-                print("CSPのコマンドライン引数が取得できませんでした。" if lang == "jp" else "Couldn't get command line arguments from CSP.")
+            except (psutil.AccessDenied, psutil.NoSuchProcess):
+                print("CSPにアクセスできませんでした。")
                 RPC.clear()
                 last_filename = None
         else:
@@ -95,10 +82,6 @@ def main():
             last_filename = None
 
         time.sleep(10)
-
-if __name__ == "__main__":
-    main()
-
 
 if __name__ == "__main__":
     main()
