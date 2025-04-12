@@ -219,14 +219,7 @@ def main():
                 if last_filename is not None:
                     last_filename = None
                     last_pid = None
-                    state_text = "待機中..." if lang == "jp" else "Waiting..."
-                    detail_text = f"EDITION : {edition}"
-                    RPC.update(
-                        state=state_text,
-                        details=detail_text,
-                        large_image=config["large_image"],
-                        large_text=f"Clip Studio Paint {edition} {config['version']}"
-                    )
+                    RPC.clear()  # RPCのステータスをクリア
             
             time.sleep(1)
     except KeyboardInterrupt:
