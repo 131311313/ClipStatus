@@ -12,6 +12,10 @@ This program is a lightweight Python script that implements **Discord Rich Prese
 > The default installation path is:  
 > `C:\Program Files (x86)\ClipStatus`
 
+> 🧠 This project was created with ChatGPT, inspired by the following projects:  
+> https://github.com/kawaiiepic/csprp  
+> https://github.com/Pepijn98/CSP-Discord/
+
 ### Features
 - Language switching: Japanese / English  
 - Edition switching: Debut / Pro / EX  
@@ -51,6 +55,10 @@ I’ll try to respond as much as possible, but please check the **Known Issues**
 > 私はプログラマーではありません。  
 > デフォルトのインストールパスは：  
 > `C:\Program Files (x86)\ClipStatus`
+
+> 🧠 以下のプロジェクトから着想を得て、ChatGPTで作成しています：  
+> https://github.com/kawaiiepic/csprp  
+> https://github.com/Pepijn98/CSP-Discord/
 
 ### 機能一覧
 - 日本語 / 英語 の切り替え  
@@ -119,6 +127,12 @@ ClipStatus をスタンドアロンの実行ファイルとしてビルドする
     ```
 
 3. プロジェクトのディレクトリで以下のコマンドを実行してください：
+
+    ```bash
+    nuitka --standalone --onefile --windows-disable-console --windows-icon-from-ico="dark_icon.ico" clipstatus.pyw
+    ```
+
+これで、配布可能な単一の `.exe` ファイルが生成されます。
 
     ```bash
     nuitka --standalone --onefile --windows-disable-console --windows-icon-from-ico="dark_icon.ico" clipstatus.pyw
