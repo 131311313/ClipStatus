@@ -39,12 +39,8 @@
 
 ### Q. アイコンを切り替える方法は？
 
-**A.** `config.json` 内で以下のように設定してください：
+**A.** `config.json` 内でdefault_iconとdark_iconお好きなほうを設定してください：
 
-```json
-"default_icon": "icon_white.ico",
-"dark_icon": "icon_dark.ico"
-```
 
 ---
 
