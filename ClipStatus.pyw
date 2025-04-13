@@ -72,18 +72,33 @@ def update_rpc(edition, filename, config):
     )
 
 def restart_application():
-    print("Restarting application...")
-    RPC.close()  # Discord RPCを閉じる
+    """アプリケーションを再起動する"""
+    print("アプリケーションを再起動中...")
+    try:
+        RPC.close()  # Discord RPCを閉じる
+    except:
+        pass
+    
+    # 現在のプロセスを終了する前に新しいプロセスを起動
     python = sys.executable
-    os.execl(python, python, *sys.argv)
+    os.spawnl(os.P_NOWAIT, python, python, *sys.argv)
+    cleanup()  # 現在のプロセスをクリーンアップして終了
 
 def cleanup():
     """アプリケーションのクリーンアップを行う"""
-    print("Cleaning up...")
+    print("クリーンアップを実行中...")
     try:
         RPC.close()
     except:
         pass
+
+    # トレイアイコンが存在する場合は停止
+    if 'tray_icon' in globals() and tray_icon is not None:
+        try:
+            tray_icon.stop()
+        except:
+            pass
+
     os._exit(0)
 
 def create_tray_icon(config, update_config_callback):
@@ -91,7 +106,7 @@ def create_tray_icon(config, update_config_callback):
         print("Reloading with current config...")
         icon.stop()  # トレイアイコンを停止
         RPC.close()  # Discord RPCを閉じる
-        restart_application()  # アプリケーションを再起動（設定は起動時に読み込まれる）
+        restart_application()  # アプリケーションを再起動
 
     def on_exit(icon, item):
         print("Closing Discord Rich Presence...")
@@ -155,7 +170,7 @@ def create_tray_icon(config, update_config_callback):
     )
 
     menu = pystray.Menu(
-        pystray.MenuItem("Config を開く", open_config),
+        pystray.MenuItem("Open Config", open_config),
         pystray.MenuItem("Language", language_menu),
         pystray.MenuItem("Edition", edition_menu),
         pystray.MenuItem("Version", create_version_menu()),
