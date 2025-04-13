@@ -27,7 +27,7 @@ This program is a lightweight Python script that implements **Discord Rich Prese
 - Edition switching: Debut / Pro / EX  
 - Version switching  
 - Icon switching (multiple available)  
-- Reload function (restart without task-killing)  
+- Currently not working - Reload function (restart without task kill)
 - Hide from system tray (must be enabled via `config.json`)  
 
 > 🔧 All features except “Hide from tray” are configurable directly via the tray menu.
@@ -74,7 +74,7 @@ I’ll try to respond as much as possible, but please check the **Known Issues**
 - エディションの切り替え（Debut / Pro / EX）  
 - バージョンの切り替え  
 - アイコンの切り替え（複数種類）  
-- リロード機能（タスクキルなしで再起動）  
+- 現在動作しません - リロード機能（タスクキルなしで再起動）   
 - トレイからウィンドウを隠す（※`config.json`から有効化が必要）  
 
 > 🔧「トレイから隠す」機能以外は、すべてトレイメニューから操作可能です。
