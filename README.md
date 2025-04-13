@@ -34,7 +34,7 @@ This program is a lightweight Python script that implements **Discord Rich Prese
 
 ### Known Issues
 - When opening `.clip` files directly from File Explorer, the filename may not be detected correctly.
-
+- It works correctly in py, but when built to .exe, reload does not work and resides in task manager
 - Settings from tray menu might not be applied properly.
 
 This is due to lack of permissions. If you're getting errors trying to overwrite `config.json` with Notepad, this is likely the cause.  
@@ -78,6 +78,7 @@ I’ll try to respond as much as possible, but please check the **Known Issues**
 
 ### 既知の不具合
 - `.clip` ファイルをエクスプローラーから直接開くと、ファイル名が正しく取得されません。
+- pyでは正しく動作しますが.exeにビルドするとreloadが動作せず、タスクマネージャーに常駐します
 
 - トレイから設定しても反映されない場合があります。
 
