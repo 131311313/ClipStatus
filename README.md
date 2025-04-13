@@ -44,6 +44,9 @@ To fix this:
 3. Grant your user **Full Control** and apply.
 4. If the problem persists, add the app to your antivirus whitelist, and repeat the steps for each file individually.
 
+5. Use 1.0.5, it will be installed in appdata/roaming.
+Be sure to uninstall the old version
+
 ---
 
 ### Regarding Issues
@@ -92,6 +95,8 @@ I’ll try to respond as much as possible, but please check the **Known Issues**
 4. それでも直らない場合は、ウイルス対策ソフトのホワイトリストに追加し、  
    各ファイルに対して同様の手順を繰り返してください。
 
+1.0.5を使用してください。appdata/roamingにインストールされます。
+古いバージョンは必ずアンインストールしてください！
 ---
 
 ### ISSUEについて
