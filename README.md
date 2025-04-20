@@ -87,6 +87,7 @@ I’ll try to respond as much as possible, but please check the **Known Issues**
   https://github.com/131311313/ClipStatus/releases/download/release4/clipstatusfix.bat
   
 - pyでは正しく動作しますが.exeにビルドするとreloadが動作せず、タスクマネージャーに常駐します
+- ウイルス対策ソフトで除外しないと正しく動作しない場合がある
 
 - トレイから設定しても反映されない場合があります。
 
