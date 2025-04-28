@@ -1,7 +1,7 @@
 {
-    "edition": "EX",
+    "edition": "PRO",
     "language": "en",
-    "large_image": "neon2_icon",
+    "large_image": "darkgreen",
     "version": "4.0.0",
     "hide_tray": false,
     "show_github": true
