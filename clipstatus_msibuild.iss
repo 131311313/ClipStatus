@@ -1,26 +1,30 @@
 [Setup]
 AppName=ClipStatus
-AppVersion=1.0.5
-DefaultDirName={userappdata}\ClipStatus
-DefaultGroupName=ClipStatus
-OutputDir=userdocs:Inno Setup Examples Output
-OutputBaseFilename=clipstatus_setup
+AppVersion=1.0
+DefaultDirName={userappdata}\clipstatus
+DisableProgramGroupPage=yes
+OutputBaseFilename=clipstatus_installer
 Compression=lzma
 SolidCompression=yes
-SetupIconFile=C:\Users\<USERNAME>\Downloads\clipstatus\icon.ico
 PrivilegesRequired=none
 
 [Files]
-Source: "C:\Users\<USERNAME>\Downloads\clipstatus\clipstatus.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\<USERNAME>Downloads\clipstatus\config.json"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\<USERNAME>\Downloads\clipstatus\icon.png"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\z\Downloads\Compressed\ClipStatus-main\ClipStatus-main\clipstatus.exe"; DestDir: "{userappdata}\clipstatus"; Flags: ignoreversion
+Source: "C:\Users\x\Downloads\Compressed\ClipStatus-main\ClipStatus-main\config.json"; DestDir: "{userappdata}\clipstatus"; Flags: ignoreversion
+Source: "C:\Users\a\Downloads\Compressed\ClipStatus-main\ClipStatus-main\icon.png"; DestDir: "{userappdata}\clipstatus"; Flags: ignoreversion
 
 [Icons]
-Name: "{group}\ClipStatus"; Filename: "{app}\clipstatus.exe"
-Name: "{userdesktop}\ClipStatus"; Filename: "{app}\clipstatus.exe"
+; スタートアップフォルダにショートカットを作成
+Name: "{userstartup}\ClipStatus"; Filename: "{userappdata}\clipstatus\clipstatus.exe"; IconFilename: "{userappdata}\clipstatus\icon.png"; WorkingDir: "{userappdata}\clipstatus"
+
+; スタートメニューにショートカットを作成
+Name: "{userprograms}\ClipStatus"; Filename: "{userappdata}\clipstatus\clipstatus.exe"; IconFilename: "{userappdata}\clipstatus\icon.png"; WorkingDir: "{userappdata}\clipstatus"
+
+; デスクトップにショートカットを作成
+Name: "{userdesktop}\ClipStatus"; Filename: "{userappdata}\clipstatus\clipstatus.exe"; IconFilename: "{userappdata}\clipstatus\icon.png"; WorkingDir: "{userappdata}\clipstatus"
 
 [Run]
-Filename: "{app}\clipstatus.exe"; Description: "Launch ClipStatus"; Flags: nowait postinstall skipifsilent
+Filename: "{userappdata}\clipstatus\clipstatus.exe"; Description: "Start ClipStatus"; Flags: runhidden
 
-[Registry]
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueName: "ClipStatus"; ValueType: string; ValueData: """{app}\clipstatus.exe"""
+[UninstallDelete]
+Type: files; Name: "{userappdata}\clipstatus\*"
