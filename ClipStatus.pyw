@@ -161,13 +161,14 @@ def create_tray_icon(config, update_config_callback):
     )
 
     icon_theme_menu = pystray.Menu(
-        pystray.MenuItem("default_icon", change_icon_theme, checked=lambda item: config["large_image"] == "default_icon"),
         pystray.MenuItem("dark_icon", change_icon_theme, checked=lambda item: config["large_image"] == "dark_icon"),
-        pystray.MenuItem("dark2_icon", change_icon_theme, checked=lambda item: config["large_image"] == "dark2_icon"),
-        pystray.MenuItem("dark3_icon", change_icon_theme, checked=lambda item: config["large_image"] == "dark3_icon"),
+        pystray.MenuItem("darkgreen", change_icon_theme, checked=lambda item: config["large_image"] == "darkgreen"),
+        pystray.MenuItem("default_icon", change_icon_theme, checked=lambda item: config["large_image"] == "default_icon"),
         pystray.MenuItem("neon_icon", change_icon_theme, checked=lambda item: config["large_image"] == "neon_icon"),
-        pystray.MenuItem("neon2_icon", change_icon_theme, checked=lambda item: config["large_image"] == "neon2_icon")
+        pystray.MenuItem("neon1_icon", change_icon_theme, checked=lambda item: config["large_image"] == "neon1_icon"),
+        pystray.MenuItem("white", change_icon_theme, checked=lambda item: config["large_image"] == "white")
     )
+
 
     menu = pystray.Menu(
         pystray.MenuItem("Open Config", open_config),
@@ -242,6 +243,10 @@ def main():
     except Exception as e:
         print(f"Error: {e}")
         cleanup()
+
+if __name__ == "__main__":
+    main()
+
 
 if __name__ == "__main__":
     main()
