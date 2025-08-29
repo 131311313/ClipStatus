@@ -24,22 +24,42 @@ VERSIONS = {
 CLIENT_ID = "1357259618220249199"
 RPC = Presence(CLIENT_ID)
 
+def get_config_path():
+    """Get the appropriate config file path based on execution context"""
+    if getattr(sys, 'frozen', False):
+        # Running as exe - use the same directory as the executable
+        return os.path.join(os.path.dirname(sys.executable), "config.json")
+    else:
+        # Running as script - use current directory
+        return os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json")
+
 def load_config():
+    config_path = get_config_path()
     try:
-        with open("config.json", "r", encoding="utf-8") as f:
+        with open(config_path, "r", encoding="utf-8") as f:
             return json.load(f)
     except FileNotFoundError:
         print("config.json が見つかりません。デフォルト設定を使用します。")
-        return {
+        default_config = {
             "edition": "EX",
             "language": "jp",
             "large_image": "default_icon",
             "version": "4.0.0"
         }
+        # Create default config file
+        save_config(default_config)
+        return default_config
 
 def save_config(config):
-    with open("config.json", "w", encoding="utf-8") as f:
-        json.dump(config, f, indent=4)
+    config_path = get_config_path()
+    try:
+        with open(config_path, "w", encoding="utf-8") as f:
+            json.dump(config, f, indent=4)
+        print(f"設定を保存しました: {config_path}")
+    except PermissionError:
+        print(f"設定ファイルの書き込み権限がありません: {config_path}")
+    except Exception as e:
+        print(f"設定保存エラー: {e}")
 
 def find_csp_process():
     """CSPプロセスを探して戻す（低負荷）"""
@@ -79,9 +99,19 @@ def restart_application():
     except:
         pass
     
-    # 現在のプロセスを終了する前に新しいプロセスを起動
-    python = sys.executable
-    os.spawnl(os.P_NOWAIT, python, python, *sys.argv)
+    # .exe化対応の再起動処理
+    if getattr(sys, 'frozen', False):
+        # PyInstallerでビルドされた場合
+        executable = sys.executable
+    else:
+        # Python スクリプトとして実行されている場合
+        executable = sys.executable
+        sys.argv.insert(0, __file__)
+    
+    # 新しいプロセスを起動
+    import subprocess
+    subprocess.Popen([executable] + sys.argv[1:], 
+                    cwd=os.path.dirname(os.path.abspath(__file__)))
     cleanup()  # 現在のプロセスをクリーンアップして終了
 
 def cleanup():
@@ -99,7 +129,11 @@ def cleanup():
         except:
             pass
 
-    os._exit(0)
+    # より安全な終了処理
+    try:
+        sys.exit(0)
+    except SystemExit:
+        os._exit(0)
 
 def create_tray_icon(config, update_config_callback):
     def on_reload(icon, item):
@@ -136,10 +170,12 @@ def create_tray_icon(config, update_config_callback):
         update_config_callback(config)
 
     def open_config(icon, item):
-        os.startfile("config.json")
+        config_path = get_config_path()
+        os.startfile(config_path)
 
     # アイコンの作成
-    image = Image.open("icon.png")
+    icon_path = os.path.join(os.path.dirname(get_config_path()), "icon.png")
+    image = Image.open(icon_path)
     
     # メニューアイテムの作成
     language_menu = pystray.Menu(
@@ -243,10 +279,6 @@ def main():
     except Exception as e:
         print(f"Error: {e}")
         cleanup()
-
-if __name__ == "__main__":
-    main()
-
 
 if __name__ == "__main__":
     main()
