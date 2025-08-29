@@ -1,4 +1,6 @@
 # Overview
+<img width="266" height="139" alt="image" src="https://github.com/user-attachments/assets/e61a0299-30b0-42ef-bc63-429514b0dc27" />
+<img width="187" height="185" alt="image" src="https://github.com/user-attachments/assets/f5e634ab-fecc-4cc8-ba63-72d5f7aaf5bd" />
 
 This program aims to implement Discord Rich Presence for Clip Studio Paint 
 using a lightweight Python script.
