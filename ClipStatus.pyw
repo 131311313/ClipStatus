@@ -8,7 +8,7 @@ import threading
 import sys
 import os
 
-# 共通のバージョンリストを使用して重複を削除
+
 COMMON_VERSIONS = [
     "4.0.0", "3.2.2", "3.2.0", "3.1.4", "3.1.2", "3.1.0",
     "3.0.8", "3.0.2", "3.0.0", "2.3.4", "2.3.2", "2.3.0",
@@ -27,10 +27,10 @@ RPC = Presence(CLIENT_ID)
 def get_config_path():
     """Get the appropriate config file path based on execution context"""
     if getattr(sys, 'frozen', False):
-        # Running as exe - use the same directory as the executable
+
         return os.path.join(os.path.dirname(sys.executable), "config.json")
     else:
-        # Running as script - use current directory
+        
         return os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json")
 
 def load_config():
@@ -46,7 +46,7 @@ def load_config():
             "large_image": "default_icon",
             "version": "4.0.0"
         }
-        # Create default config file
+        
         save_config(default_config)
         return default_config
 
@@ -95,24 +95,24 @@ def restart_application():
     """アプリケーションを再起動する"""
     print("アプリケーションを再起動中...")
     try:
-        RPC.close()  # Discord RPCを閉じる
+        RPC.close()  
     except:
         pass
     
-    # .exe化対応の再起動処理
+    
     if getattr(sys, 'frozen', False):
-        # PyInstallerでビルドされた場合
+        
         executable = sys.executable
     else:
-        # Python スクリプトとして実行されている場合
+        
         executable = sys.executable
         sys.argv.insert(0, __file__)
     
-    # 新しいプロセスを起動
+    
     import subprocess
     subprocess.Popen([executable] + sys.argv[1:], 
                     cwd=os.path.dirname(os.path.abspath(__file__)))
-    cleanup()  # 現在のプロセスをクリーンアップして終了
+    cleanup()  
 
 def cleanup():
     """アプリケーションのクリーンアップを行う"""
@@ -122,14 +122,14 @@ def cleanup():
     except:
         pass
 
-    # トレイアイコンが存在する場合は停止
+   
     if 'tray_icon' in globals() and tray_icon is not None:
         try:
             tray_icon.stop()
         except:
             pass
 
-    # より安全な終了処理
+   
     try:
         sys.exit(0)
     except SystemExit:
@@ -138,9 +138,9 @@ def cleanup():
 def create_tray_icon(config, update_config_callback):
     def on_reload(icon, item):
         print("Reloading with current config...")
-        icon.stop()  # トレイアイコンを停止
-        RPC.close()  # Discord RPCを閉じる
-        restart_application()  # アプリケーションを再起動
+        icon.stop()  
+        RPC.close()  
+        restart_application()  
 
     def on_exit(icon, item):
         print("Closing Discord Rich Presence...")
@@ -155,7 +155,7 @@ def create_tray_icon(config, update_config_callback):
     def change_edition(icon, item):
         config["edition"] = item.text
         if "version" not in config or config["version"] not in VERSIONS[item.text]:
-            config["version"] = VERSIONS[item.text][0]  # デフォルトで最新バージョンを選択
+            config["version"] = VERSIONS[item.text][0]  
         save_config(config)
         update_config_callback(config)
 
@@ -173,11 +173,11 @@ def create_tray_icon(config, update_config_callback):
         config_path = get_config_path()
         os.startfile(config_path)
 
-    # アイコンの作成
+    
     icon_path = os.path.join(os.path.dirname(get_config_path()), "icon.png")
     image = Image.open(icon_path)
     
-    # メニューアイテムの作成
+    
     language_menu = pystray.Menu(
         pystray.MenuItem("日本語", change_language, checked=lambda item: config["language"] == "jp"),
         pystray.MenuItem("English", change_language, checked=lambda item: config["language"] == "en")
@@ -237,7 +237,7 @@ def main():
         lang = new_config.get("language", "jp")
         force_update = True
 
-    # トレイアイコンの作成（hide_trayがfalseの場合のみ）
+    
     tray_icon = None
     if not config.get("hide_tray", False):
         tray_icon = create_tray_icon(config, update_config_callback)
@@ -255,8 +255,8 @@ def main():
                 current_pid = proc.pid
                 if current_pid != last_pid or force_update:
                     last_pid = current_pid
-                    last_filename = None  # Reset filename to force update
-                    force_update = False  # Reset force_update flag
+                    last_filename = None  
+                    force_update = False  
 
                 try:
                     cmdline = proc.cmdline()
@@ -271,7 +271,7 @@ def main():
                 if last_filename is not None:
                     last_filename = None
                     last_pid = None
-                    RPC.clear()  # RPCのステータスをクリア
+                    RPC.clear()  
             
             time.sleep(1)
     except KeyboardInterrupt:
